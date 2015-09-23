@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'algblog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,6 +79,12 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':'django.db.backends.mysql', #数据库引擎
+        'NAME':'algblog', #数据库名称
+        'USER':'root', #用户名
+        'PASSWORD':'root', #密码
+        'HOST':'', #数据库位置，本机留空
+        'PORT':'', #数据库端口，默认留空
     }
 }
 
