@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load custom_markdown %}
+
+{% block content %}
+<div>
+    {% include "widgets/category.html" %}
+</div>
+<div>
+{{ object.content | custom_markdown}}
+</div>
+{% endblock content %}
