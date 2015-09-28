@@ -45,6 +45,16 @@ class Category(models.Model):
 		else:
 			return self.name
 
+class Tags(models.Model):
+    name = models.CharField(max_length = 100, verbose_name = '标签名称')
+    create_time = models.DateTimeField('创建时间', auto_now = True)
+
+    class Meta:
+        verbose_name = verbose_name_plural = '标签'
+
+    def __str__(self):
+        return self.name
+
 class Article(models.Model):
 	"""docstring for Article"""
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name = '作者')
@@ -52,14 +62,15 @@ class Article(models.Model):
 	title = models.CharField(max_length = 100, verbose_name='标题')
 	#en_title = models.CharField(max_length = 100, verbose_name = '英文标题')
 	#img = models.CharField(max_length = 200, default = r'/static/img/article/default.jpg', verbose_name='封面')
-	tags = models.CharField(max_length = 200, null = True, blank = True, verbose_name='标签', help_text='用逗号分隔')
+	#tags = models.CharField(max_length = 200, null = True, blank = True, verbose_name='标签', help_text='用逗号分隔')
+	tags = models.ManyToManyField(Tags, verbose_name='标签')
 	#summary = models.TextField(verbose_name = '摘要')
 	content = models.TextField(verbose_name = '正文')
 	#summary = UEditorField('摘要', width =860, height = 500, toolbars = 'full', imagePath = 'algblog/static/upload',filePath = 'algblog/static/upload', \
 	#	upload_settings = {'imageMaxSize':1024000}, settings = {}, command= None, blank=True)
 	#content = UEditorField('正文', width =860, height = 500, toolbars = 'full', imagePath = 'algblog/static/upload',filePath = 'algblog/static/upload', \
 	#	upload_settings = {'imageMaxSize':1024000}, settings = {}, command= None, blank=True)
-	
+
 
 	view_times = models.IntegerField(default = 0, verbose_name='浏览次数')
 	agree_times = models.IntegerField(default = 0, verbose_name='被赞次数')
@@ -82,6 +93,7 @@ class Article(models.Model):
 	def __str__(self):
 		return self.title
 
+
 '''
 class Column(models.Model):
 	"""docstring for Column"""
@@ -97,5 +109,5 @@ class Column(models.Model):
 
 	def __str__(self):
 		return self.name
-'''		
-		
+'''
+
