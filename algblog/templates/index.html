@@ -5,7 +5,7 @@
 <div>
     <ul>
     {% for article in article_list %}
-    <li><a href="{%url 'article_detail' article.id%}">{{ article.title}}</a></li>
+    <li><a href="{%url 'article_detail' article.id%}">{% include "include/article_summary.html" %}</a></li>
     {% endfor %}
     </ul>
 </div>
