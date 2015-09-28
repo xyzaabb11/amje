@@ -12,7 +12,6 @@ def  index(request):
 
 def category(request):
     categorys = Category.objects.all()
-    print(categorys+'111')
     return render(request, 'widgtes/category.py', {'categorys': categorys})
 
 class BaseMixin(object):
@@ -20,7 +19,7 @@ class BaseMixin(object):
         context = super(BaseMixin,self).get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
         context['tags_list'] = Tags.objects.all()
-        print(context)
+        #print(context)
         return context
 
 class IndexView(BaseMixin, ListView):
@@ -29,7 +28,7 @@ class IndexView(BaseMixin, ListView):
     #paginate_by = 2
 
     def get_context_data(self, **kwargs):
-        print(kwargs)
+        #print(kwargs)
         return super(IndexView, self).get_context_data(**kwargs)
     def get_queryset(self):
         article_list = Article.objects.all()
@@ -39,7 +38,23 @@ class ArticleView(BaseMixin, DetailView):
     template_name = 'article_detail.html'
     model = Article
     def get_context_data(self, **kwargs):
-        print(kwargs)
+        #print(kwargs)
         context = super(ArticleView,self).get_context_data(**kwargs)
         #context['article_tags'] =
         return context
+
+class ArticleInTagView(IndexView):
+    template_name = 'index.html'
+    context_object_name = 'article_list'
+    def get_queryset(self):
+        tag_id = self.kwargs.get('pk','')
+        print(Tags.objects.get(id = 1))
+        article_list = Tags.objects.get(id = tag_id).article_set.all()
+        print(article_list)
+        return article_list
+
+class ArticleInCategoryView(IndexView):
+    def get_queryset(self):
+        category_id = self.kwargs.get('pk', '')
+        article_list = Article.objects.filter(category = category_id)
+        return article_list
