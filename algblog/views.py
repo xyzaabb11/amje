@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from algblog.models import Article, Category
+from algblog.models import Article, Category,Tags
 from django.views.generic import View, TemplateView, ListView, DetailView
 
 # Create your views here.
@@ -19,6 +19,7 @@ class BaseMixin(object):
     def get_context_data(self, *args, **kwargs):
         context = super(BaseMixin,self).get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
+        context['tags_list'] = Tags.objects.all()
         print(context)
         return context
 
@@ -37,7 +38,8 @@ class IndexView(BaseMixin, ListView):
 class ArticleView(BaseMixin, DetailView):
     template_name = 'article_detail.html'
     model = Article
-    print(model)
     def get_context_data(self, **kwargs):
         print(kwargs)
-        return super(ArticleView, self).get_context_data(**kwargs)
+        context = super(ArticleView,self).get_context_data(**kwargs)
+        #context['article_tags'] =
+        return context
