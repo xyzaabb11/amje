@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    #'bootstrap_admin',
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'algblog',
+    'fEnRdr',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +70,6 @@ TEMPLATES = [
         },
     },
 ]
-BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
 WSGI_APPLICATION = 'amje.wsgi.application'
 
@@ -87,9 +87,22 @@ DATABASES = {
         'PASSWORD':'33848452ll.', #密码
         'HOST':'', #数据库位置，本机留空
         'PORT':'', #数据库端口，默认留空
-    }
+    },
+    'fEnRdr':{
+        'ENGINE':'django.db.backends.mysql', #数据库引擎
+        'NAME':'fEnRdr', #数据库名称
+        'USER':'root', #用户名
+        'PASSWORD':'33848452ll.', #密码
+        'HOST':'', #数据库位置，本机留空
+        'PORT':'', #数据库端口，默认留空
+        }
 }
 
+DATABASE_ROUTER = ['amje.database_router.DatabaseRouter']
+
+DATABASE_MAP = {
+        'fEnRdr':'fEnRdr',
+        }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -109,4 +122,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
