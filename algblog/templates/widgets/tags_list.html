@@ -1,7 +1,7 @@
 <div>
 <ul>
     {% for tag in tags_list %}
-    <li>{{ tag.name }}</li>
+    <li><a href="{% url 'articleintag' tag.id %}">{{ tag.name }}</a></li>
     {% endfor %}
 </ul>
 </div>
